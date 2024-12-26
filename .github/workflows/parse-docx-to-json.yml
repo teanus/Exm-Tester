@@ -25,10 +25,17 @@ jobs:
 
       - name: Run DOCX to JSON parser
         run: |
-          python parser/docx_to_json.py
+          python parser/parse-docx-to-json.py
+
+      - name: Configure Git
+        run: |
+          git config --local user.name "teanus"
+          git config --local user.email "teanus.ti@gmail.com"
 
       - name: Commit JSON output
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-         git add parser/output/*.json
+          git add parser/output/*.json
           git commit -m "Auto-parse DOCX to JSON [skip ci]" || echo "No changes to commit"
-          git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/teanus/Exm-Tester.git
+          git push origin HEAD
