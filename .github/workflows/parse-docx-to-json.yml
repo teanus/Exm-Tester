@@ -1,0 +1,36 @@
+name: Parse DOCX to JSON
+
+on:
+  push:
+    paths:
+      - "parser/input/*.docx"
+
+jobs:
+  parse-docx:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install python-docx
+
+      - name: Run DOCX to JSON parser
+        run: |
+          python parser/docx_to_json.py
+
+      - name: Commit JSON output
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add parser/output/*.json
+          git commit -m "Auto-parse DOCX to JSON [skip ci]" || echo "No changes to commit"
+          git push
