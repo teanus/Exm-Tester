@@ -5,6 +5,9 @@ from docx import Document
 INPUT_DIR = os.path.join(os.path.dirname(__file__), 'input')
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), 'output')
 
+if not os.path.exists(OUTPUT_DIR):
+    os.makedirs(OUTPUT_DIR)
+
 def parse_docx_to_json(file_path):
     document = Document(file_path)
     questions = []
