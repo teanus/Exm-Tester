@@ -2,8 +2,8 @@ import os
 import json
 from docx import Document
 
-INPUT_DIR = "input"
-OUTPUT_DIR = "output"
+INPUT_DIR = os.path.join(os.path.dirname(__file__), 'input')
+OUTPUT_DIR = os.path.join(os.path.dirname(__file__), 'output')
 
 def parse_docx_to_json(file_path):
     document = Document(file_path)
