@@ -33,4 +33,4 @@ jobs:
           git config user.email "actions@github.com"
           git add parser/output/*.json
           git commit -m "Auto-parse DOCX to JSON [skip ci]" || echo "No changes to commit"
-          git push
+          git push https://github.com/${{ secrets.GITHUB_ACTOR }}:${{ secrets.GH_TOKEN }}@github.com/teanus/Exm-Tester.git
